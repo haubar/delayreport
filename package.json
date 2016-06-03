@@ -1,0 +1,45 @@
+{
+  "name": "base_crawler",
+  "version": "1.0.0",
+  "description": "base crawler",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/haubar/base_crawler.git"
+  },
+  "keywords": [
+    "crawler"
+  ],
+  "author": "haubarclack@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/haubar/base_crawler/issues"
+  },
+  "homepage": "https://github.com/haubar/base_crawler#readme",
+  "dependencies": {
+    "crawler2": "0.0.2",
+    "jsdom": "^8.3.1"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.11.2",
+    "chai": "^3.5.0",
+    "eslint": "^2.7.0",
+    "mocha": "^2.4.5",
+    "npm-run-all": "^1.7.0",
+    "onchange": "^2.2.0"
+  },
+  "scripts": {
+    "test": "mocha test/",
+    "clean": "rm -r dist/*",
+    "lint": "eslint src/js",
+    "serve": "browser-sync start --server --files 'dist/js/*.js",
+    "prebuild": "npm run clean -s",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:js": "npm run lint",
+    "build": "npm run build:js",
+    "watch:js": "onchange 'src/js/*.js' -- npm run build:js",
+    "watch:all": "npm-run-all -p serve watch:*",
+    "postbuild": "npm run watch:all"
+  }
+
+}
