@@ -6,7 +6,7 @@ var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
 		callback : function (error, result, $){
-				$('#main  #newslistul li').each(function(index, a) {
+				$('#article #coverstory li').each(function(index, a) {
 				 var tolink = $(this).find('a').attr('href');
 				 var totitle = $(this).find('a').text();
   			 console.log(tolink);
@@ -19,9 +19,9 @@ var craw = new Crawler({
 });
 
 var customSearch = function(keyword){
-	return 'http://news.ltn.com.tw/newspaper/focus/' + keyword;
+	return 'http://www.appledaily.com.tw/appledaily/archive/' + keyword;
 };
 
 craw.queue({
-  uri: customSearch('20050101')
+  uri: customSearch('20030505')
 });
