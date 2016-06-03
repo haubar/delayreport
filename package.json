@@ -1,7 +1,7 @@
 {
-  "name": "base_crawler",
+  "name": "delayreport_crawler",
   "version": "1.0.0",
-  "description": "base crawler",
+  "description": "delayreport source crawler",
   "main": "index.js",
   "repository": {
     "type": "git",
