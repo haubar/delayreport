@@ -6,19 +6,22 @@ var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
 		callback : function (error, result, $){
-				$('#contentCol #pagelet_search_results_objects #all_search_results').each(function(index, a) {
-				 var toQueueUrl = $(this).find('a').attr('href');
-  			 console.log(a);
-  			 //console.log(toQueueUrl);
-				//craw.queue(toQueueUrl);
+				$('#main  #newslistul li').each(function(index, a) {
+				 var tolink = $(this).find('a').attr('href');
+				 var totitle = $(this).find('a').text();
+  			 console.log(tolink);
+			 console.log(totitle);
+  			 console.log('==================================');
+			 console.log('\n');
+			//craw.queue(toQueueUrl);
      });
 		}
 });
 
 var customSearch = function(keyword){
-	return 'https://www.facebook.com/search/pages/?q=' + keyword;
+	return 'http://news.ltn.com.tw/newspaper/focus/' + keyword;
 };
 
 craw.queue({
-  uri: customSearch('coffee', '咖啡')
+  uri: customSearch('20050101', '20050102', '20050103')
 });
