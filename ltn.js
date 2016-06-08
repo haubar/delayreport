@@ -18,10 +18,12 @@ var craw = new Crawler({
 		}
 });
 
-var customSearch = function(keyword){
-	return 'http://news.ltn.com.tw/newspaper/focus/' + keyword;
+var customSearch = function(keyword, cate){
+		return 'http://news.ltn.com.tw/newspaper/' + cate + '/' + keyword;
 };
-
-craw.queue({
-  uri: customSearch('20050101')
-});
+var category = ['focus','politics','society','life','opinion','world'];
+for (var idx = 0; idx < category.length; idx++) {
+	craw.queue({
+	  uri: customSearch('20050101', category[idx])
+	});
+}
