@@ -22,15 +22,16 @@ var pagecraw = new Crawler({
 	maxConnections : 10,
 	jQuery : jsdom,
 	callback : function (error, result, $){
-	// 		$('.wrapper_box .container_box .block_z1:first a').each(function(index, a) {
-	// 		 var tolink = $(this).attr('href');
-	// 		 var totitle = $(this).text();
-	// 	 console.log(tolink); console.log('\n');
-	// 	 console.log(totitle);
+		if(!!$('#all-news-list'))
+			$('#all-news-list h3').each(function(index, a) {
+			 var tolink = $(this).find('a').attr('href');
+			 var totitle = $(this).text();
+		 console.log(tolink);
+		 console.log(totitle);
 		 console.log('==================================');
 		 console.log('\n');
 	//
- // 	});
+ 	});
  	}
 });
 
