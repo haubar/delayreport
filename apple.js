@@ -1,7 +1,7 @@
 // crawler main
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
-var dbsave = require('mongo.js');
+var dbsave = require('./mongo.js');
 var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
@@ -14,11 +14,7 @@ var craw = new Crawler({
   	// 		 console.log('==================================');
 			//  console.log('\n');
 			//craw.queue(toQueueUrl);
-			var historyData = new report({
-			  title: totitle,
-			  link: tolink,
-			  type: 'apple',
-			});
+			
      });
 		}
 });
