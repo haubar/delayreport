@@ -14,6 +14,11 @@ var craw = new Crawler({
   			 console.log('==================================');
 			 console.log('\n');
 			 pagecraw.queue(tolink);
+			 var historyData = new report({
+			   title: totitle,
+			   link: tolink,
+			   type: 'ettoday',
+			 });
      	});
 		}
 });

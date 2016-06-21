@@ -9,11 +9,15 @@ var craw = new Crawler({
 				$('#main  #newslistul li').each(function(index, a) {
 				 var tolink = $(this).find('a').attr('href');
 				 var totitle = $(this).find('a').text();
-  			 console.log(tolink);
-			 console.log(totitle);
-  			 console.log('==================================');
-			 console.log('\n');
-			//craw.queue(toQueueUrl);
+  	// 		 console.log(tolink);
+			//  console.log(totitle);
+  	// 		 console.log('==================================');
+			//  console.log('\n');
+			 var historyData = new report({
+			  title: totitle,
+			  link: tolink,
+			  type: 'ltn',
+			});
      });
 		}
 });

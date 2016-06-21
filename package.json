@@ -5,7 +5,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haubar/base_crawler.git"
+    "url": "git+https://github.com/haubar/delayreport.git"
   },
   "keywords": [
     "crawler"
@@ -13,12 +13,14 @@
   "author": "haubarclack@gmail.com",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/haubar/base_crawler/issues"
+    "url": "https://github.com/haubar/delayreport/issues"
   },
-  "homepage": "https://github.com/haubar/base_crawler#readme",
+  "homepage": "https://github.com/haubar/delayreport#readme",
   "dependencies": {
     "crawler2": "0.0.2",
-    "jsdom": "^8.3.1"
+    "jsdom": "^8.3.1",
+	  "connect": "*",
+    "mongoose": "*"
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
