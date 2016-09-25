@@ -4,6 +4,7 @@ require( './db' );
 
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
+var moment = require('moment');
 
 var newsdate = 20030505;
 var datenow = moment().format("YYYY-MM-DD");
