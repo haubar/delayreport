@@ -1,18 +1,14 @@
 // crawler main
-var mongoose = require('mongoose');
-var Schema   = mongoose.Schema;
-var report = mongoose.model('delayreport', {
-                    title: String,
-                    link: String,
-                    type: String,
-                    updated_at: Date
-              });
-mongoose.model( 'delayreport', report );
-mongoose.connect('mongodb://localhost/delayreport');
+require( './db' );
 
 
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
+
+var newsdate = 20030505;
+var datenow = moment().format("YYYY-MM-DD");
+var datecreate = moment(newsdate).format("YYYY-MM-DD");
+
 var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
@@ -24,7 +20,9 @@ var craw = new Crawler({
 					   title: totitle,
 					   link: tolink,
 					   type: 'apple',
-					 });
+						 created_at: datecreate,
+             updated_at: datenow
+					});
 					 historyData.save(function (err) {
 					   if (err)
 					   console.log(tolink);
