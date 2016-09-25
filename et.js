@@ -1,6 +1,7 @@
 // crawler main
 require( './db' );
-
+var mongoose = require('mongoose');
+var report     = mongoose.model('report');
 
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
