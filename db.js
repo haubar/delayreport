@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
-var report = mongoose.model('report', {
+var news = mongoose.model('news', {
                     title: String,
                     link: String,
+                    category: String,
                     type: String,
-                    created_at: Date,
+                    created_at: String,
                     updated_at: Date
               });
-mongoose.model( 'report', report );
+mongoose.model( 'news', news );
 mongoose.connect('mongodb://localhost/delayreport');

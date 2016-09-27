@@ -1,15 +1,16 @@
 // crawler main
 require( './db' );
 var mongoose = require('mongoose');
-var report     = mongoose.model('report');
+var news     = mongoose.model('news');
 
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
 var moment = require('moment');
 
-var newsdate = 20030505;
+var newsdate = 20050101;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
+var cate = 'none';
 
 var craw = new Crawler({
 		maxConnections : 10,
@@ -18,11 +19,12 @@ var craw = new Crawler({
 				$('#main  #newslistul li').each(function(index, a) {
 				 var tolink = $(this).find('a').attr('href');
 				 var totitle = $(this).find('a').text();
-				 var historyData = new report({
+				 var historyData = new news({
 				   title: totitle,
 				   link: tolink,
+					 category: cate,
 				   type: 'ltn',
-					 created_at: datecreate,
+					 created_at: newsdate,
            updated_at: datenow
 				 });
 				 historyData.save(function (err) {
