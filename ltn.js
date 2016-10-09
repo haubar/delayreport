@@ -7,6 +7,7 @@ var Crawler = require('crawler2');
 var jsdom = require('jsdom');
 var moment = require('moment');
 
+var newsurl = 'http://news.ltn.com.tw/newspaper'
 var newsdate = 20050101;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
@@ -15,14 +16,16 @@ var cate = 'none';
 var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
+		forceUTF8 : true,
 		callback : function (error, result, $){
+				var	tolink,title;
 				$('#main  #newslistul li').each(function(index, a) {
-				 var tolink = $(this).find('a').attr('href');
-				 var totitle = $(this).find('a').text();
-				 var historyData = new news({
+				  tolink = $(this).find('a').attr('href');
+				  totitle = $(this).find('a').text();
+				   var historyData = new news({
 				   title: totitle,
-				   link: tolink,
-					 category: cate,
+				   link: newsurl+tolink,
+					 category: category[idx],
 				   type: 'ltn',
 					 created_at: newsdate,
            updated_at: datenow

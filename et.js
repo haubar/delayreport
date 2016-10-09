@@ -7,6 +7,7 @@ var Crawler = require('crawler2');
 var jsdom = require('jsdom');
 var moment = require('moment');
 
+var newsurl = 'http://www.ettoday.net/'
 var newsdate = 20030505;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYYMMDD");
@@ -15,13 +16,15 @@ var cate = 'none';
 var craw = new Crawler({
 		maxConnections : 10,
 		jQuery : jsdom,
+		forceUTF8 : true,
 		callback : function (error, result, $){
+				var tolink, title;
 				$('.wrapper_box .container_box .block_z1:first a').each(function(index, a) {
-				 var tolink = $(this).attr('href');
-				 var totitle = $(this).text();
-			 var historyData = new news({
+				 tolink = $(this).attr('href');
+				 totitle = $(this).text();
+			   var historyData = new news({
 			   title: totitle,
-			   link: tolink,
+			   link: newsurl+tolink,
 			   category: cate,
 			   type: 'ettoday',
 			   created_at: newsdate,
