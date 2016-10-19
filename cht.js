@@ -68,6 +68,17 @@ var pagecraw = new Crawler({
  	}
 });
 
+
+var startd = moment('2003-05-05');
+var endd = moment();
+var centerday;
+for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
+  console.log(
+	 centerday = m.format('YYYYMMDD')
+   );
+}
+
+
 var customSearch = function(keyword, mapx){
 	return 'http://www.chinatimes.com/history-by-date/' + keyword+'-'+ mapx;
 };

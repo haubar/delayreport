@@ -9,7 +9,9 @@ var jsdom = require('jsdom');
 var moment = require('moment');
 
 var newsurl = 'http://www.appledaily.com.tw'
-var newsdate = 20030505;
+var startd = moment('2003-05-05');
+var endd = moment();
+var newsdate = startd;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
 var cate = 'none';
@@ -45,6 +47,14 @@ var customSearch = function(keyword){
 	return 'http://www.appledaily.com.tw/appledaily/archive/' + keyword;
 };
 
-craw.queue({
-  uri: customSearch('20030505')
-});
+var centerday;
+for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
+  console.log(
+	 centerday = m.format('YYYYMMDD')
+   );
+  craw.queue({
+  	uri: customSearch(centerday)
+  });
+}
+
+;

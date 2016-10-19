@@ -42,6 +42,16 @@ var craw = new Crawler({
 var customSearch = function(keyword, cate){
 		return 'http://news.ltn.com.tw/newspaper/' + cate + '/' + keyword;
 };
+
+var startd = moment('2003-05-05');
+var endd = moment();
+var centerday;
+for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
+  console.log(
+	 centerday = m.format('YYYYMMDD')
+   );
+}
+
 var category = ['focus','politics','society','life','opinion','world'];
 for (var idx = 0; idx < category.length; idx++) {
 	craw.queue({
