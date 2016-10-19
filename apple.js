@@ -8,7 +8,7 @@ var Crawler = require('crawler2');
 var jsdom = require('jsdom');
 var moment = require('moment');
 
-var newsurl = 'http://www.appledaily.com.tw/appledaily/archive'
+var newsurl = 'http://www.appledaily.com.tw'
 var newsdate = 20030505;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
@@ -20,7 +20,7 @@ var craw = new Crawler({
 		forceUTF8 : true,
 		callback : function (error, result, $){
 				var tolink,title; 
-				$('#article #coverstory li').each(function(index, a) {
+				$('#article .soil #coverstory .nclns li').each(function(index, a) {
 				 tolink = $(this).find('a').attr('href');
 				 totitle = $(this).find('a').text();
 					 var historyData = new news({
