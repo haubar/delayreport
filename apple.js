@@ -9,8 +9,8 @@ var jsdom = require('jsdom');
 var moment = require('moment');
 
 var newsurl = 'http://www.appledaily.com.tw'
-var startd = moment('2003-05-05');
-var endd = moment();
+var startd = moment(process.argv[2]);
+var endd = startd; //moment();
 var newsdate = startd;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
@@ -33,6 +33,7 @@ var craw = new Crawler({
 					   created_at: newsdate,
              		   updated_at: datenow
 					});
+					console.log(totitle);
 					 historyData.save(function (err) {
 					   if (err)
 					   console.log(tolink);
@@ -49,12 +50,10 @@ var customSearch = function(keyword){
 
 var centerday;
 for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
-  console.log(
+//   console.log(
 	 centerday = m.format('YYYYMMDD')
-   );
+//    );
   craw.queue({
   	uri: customSearch(centerday)
   });
 }
-
-;
