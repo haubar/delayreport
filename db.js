@@ -1,3 +1,4 @@
+require('dotenv').config()
 var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 var news = mongoose.model('news', {
@@ -9,4 +10,4 @@ var news = mongoose.model('news', {
                     updated_at: Date
               });
 mongoose.model( 'news', news );
-mongoose.connect('mongodb://localhost/delayreport');
+mongoose.connect( process.env.DB_HOST );

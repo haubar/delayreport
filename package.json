@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/haubar/delayreport#readme",
   "dependencies": {
+    "dotenv": "^2.0.0",
     "crawler2": "0.0.2",
     "jsdom": "^8.3.1",
     "moment": "*",
