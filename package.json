@@ -22,7 +22,7 @@
     "jsdom": "^8.3.1",
     "moment": "*",
 	  "connect": "*",
-    "mongoose": "*"
+    "mongoose": "^4"
   },
   "devDependencies": {
     "browser-sync": "^2.11.2",
