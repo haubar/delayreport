@@ -7,10 +7,10 @@ var news     = mongoose.model('news');
 var Crawler = require('crawler2');
 var jsdom = require('jsdom');
 var moment = require('moment');
-
+var keyword;
 var newsurl = 'http://www.appledaily.com.tw'
 var startd = moment(process.argv[2]);
-var endd = startd; //moment();
+var endd = moment(process.argv[3]); //moment();
 var newsdate = startd;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYY-MM-DD");
@@ -21,7 +21,13 @@ var craw = new Crawler({
 		jQuery : jsdom,
 		forceUTF8 : true,
 		callback : function (error, result, $){
-				var tolink,title; 
+			
+				var tolink,title, created;
+				// created = $('time datetime').text();
+				// created = result.attr('time datetime').text();
+				created = result.uri.replace('http://www.appledaily.com.tw/appledaily/archive/', "")
+				// console.log(created);
+				// console.log(result.uri);
 				$('#article .soil #coverstory .nclns li').each(function(index, a) {
 				 tolink = $(this).find('a').attr('href');
 				 totitle = $(this).find('a').text();
@@ -30,10 +36,10 @@ var craw = new Crawler({
 					   link: newsurl+tolink,
 					   category: cate,
 					   type: 'apple',
-					   created_at: newsdate,
+					   created_at: created,
              		   updated_at: datenow
 					});
-					console.log(totitle);
+					// console.log(totitle);
 					 historyData.save(function (err) {
 					   if (err)
 					   console.log(tolink);
@@ -54,6 +60,7 @@ for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
 	 centerday = m.format('YYYYMMDD')
 //    );
   craw.queue({
-  	uri: customSearch(centerday)
+  	uri: customSearch(centerday),
+	
   });
 }
