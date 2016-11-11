@@ -21,12 +21,12 @@ var craw = new Crawler({
 		jQuery : jsdom,
 		forceUTF8 : true,
 		callback : function (error, result, $){
-			
+
 				var tolink,title, created;
 				// created = $('time datetime').text();
 				// created = result.attr('time datetime').text();
 				created = result.uri.replace('http://www.appledaily.com.tw/appledaily/archive/', "")
-				// console.log(created);
+				console.log(created);
 				// console.log(result.uri);
 				$('#article .soil #coverstory .nclns li').each(function(index, a) {
 				 tolink = $(this).find('a').attr('href');
@@ -61,6 +61,6 @@ for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
 //    );
   craw.queue({
   	uri: customSearch(centerday),
-	
+
   });
 }
