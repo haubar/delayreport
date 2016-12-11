@@ -36,11 +36,15 @@ var craw = new Crawler({
 			    created_at: created,
          	    updated_at: datenow
 			   });
-			  console.log(created);
-			  console.log(tolink);
-			   console.log(totitle);
+			//   console.log(created);
+			//   console.log(tolink);
+			//    console.log(totitle);
 	
 			 historyData.save(function (err) {
+				 console.log(tolink);
+				 console.log(totitle);
+				 console.log('save -ok!')
+				  console.log(created);
 			   if (err)
 			   console.log(tolink);
 			   console.log(totitle);
