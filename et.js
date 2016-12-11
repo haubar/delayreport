@@ -20,7 +20,7 @@ var craw = new Crawler({
 		jQuery : jsdom,
 		forceUTF8 : true,
 		callback : function (error, result, $){
-				var tolink, title, created;
+				var tolink, totitle, created;
 			
 				if(!!$('#all-news-list h3'))
 				$('#all-news-list h3').each(function(index, a) {
@@ -37,12 +37,10 @@ var craw = new Crawler({
          	    updated_at: datenow
 			   });
 			//   console.log(created);
-			//   console.log(tolink);
-			//    console.log(totitle);
+			  console.log(tolink);
+			   console.log(totitle);
 	
 			 historyData.save(function (err) {
-				 console.log(tolink);
-				 console.log(totitle);
 				 console.log('save -ok!')
 				  console.log(created);
 			   if (err)
