@@ -19,16 +19,16 @@ var craw = new Crawler({
 		maxConnections : 8,
 		jQuery : jsdom,
 		forceUTF8 : true,
-		callback : function (error, result, $){
+	callback : function (error, result, $){
 				var tolink, totitle, created;
 			
 				if(!!$('#all-news-list h3'))
-				$('#all-news-list h3').each(function(index, a) {
+		$('#all-news-list h3').each(function(index, a) {
 				 tolink = $(this).find('a').attr('href');
 				 totitle = $(this).text();
 				 created = tolink.replace('http://www.ettoday.net/news/', "")
 				 created = created.replace(/[/]\d+(.htm)/ig, '')
-			    var historyData = new news({
+			   var historyData = new news({
 			    title: totitle,
 			    link: tolink,
 			    category: cate,
@@ -42,12 +42,13 @@ var craw = new Crawler({
 	
 			 historyData.save(function (err) {
 				 console.log('save -ok!')
-				  console.log(created);
+				  console.log(tolink);
 			   if (err)
 			   console.log(tolink);
 			   console.log(totitle);
 			 });
      	});
+		 historyData = null;
 		 
 	}
 });
