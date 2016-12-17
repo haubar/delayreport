@@ -16,7 +16,7 @@ var datecreate = moment(newsdate).format("YYYYMMDD");
 var cate = 'none';
 
 var craw = new Crawler({
-		maxConnections : 8,
+		maxConnections : 5,
 		jQuery : jsdom,
 		forceUTF8 : true,
 	callback : function (error, result, $){
