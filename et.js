@@ -16,7 +16,7 @@ var datecreate = moment(newsdate).format("YYYYMMDD");
 var cate = 'none';
 
 var craw = new Crawler({
-		maxConnections : 5,
+		maxConnections : 8,
 		jQuery : jsdom,
 		forceUTF8 : true,
 	callback : function (error, result, $){
@@ -40,8 +40,8 @@ var craw = new Crawler({
 							updated_at: datenow
 						});
 						//   console.log(created);
-						// console.log(tolink);
-						// console.log(totitle);
+						console.log(tolink);
+						console.log(totitle);
 				
 						historyData.save(function (err) {
 							
@@ -50,15 +50,18 @@ var craw = new Crawler({
 							console.log(totitle);
 							}else{
 								console.log('save -ok!')
-								console.log(tolink);
-								console.log(totitle);
+								// console.log(tolink);
+								// console.log(totitle);
+								tolink = null;
+								totitle = null;
 							}
+							
 						});
+						
 					});
 		 			historyData = null;
-
-
 				}
+		return false;
 	}
 });
 
