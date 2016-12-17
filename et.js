@@ -20,36 +20,45 @@ var craw = new Crawler({
 		jQuery : jsdom,
 		forceUTF8 : true,
 	callback : function (error, result, $){
-				var tolink, totitle, created;
-			
-				if(!!$('#all-news-list h3'))
-		$('#all-news-list h3').each(function(index, a) {
-				 tolink = $(this).find('a').attr('href');
-				 totitle = $(this).text();
-				 created = tolink.replace('http://www.ettoday.net/news/', "")
-				 created = created.replace(/[/]\d+(.htm)/ig, '')
-			   var historyData = new news({
-			    title: totitle,
-			    link: tolink,
-			    category: cate,
-			    type: 'ettoday',
-			    created_at: created,
-         	    updated_at: datenow
-			   });
-			//   console.log(created);
-			  console.log(tolink);
-			   console.log(totitle);
-	
-			 historyData.save(function (err) {
-				 console.log('save -ok!')
-				  console.log(tolink);
-			   if (err)
-			   console.log(tolink);
-			   console.log(totitle);
-			 });
-     	});
-		 historyData = null;
-		 
+				
+				if(error){
+					console.log(error);
+				}else{
+					var tolink, totitle, created;
+					if(!!$('#all-news-list h3'))
+					$('#all-news-list h3').each(function(index, a) {
+						tolink = $(this).find('a').attr('href');
+						totitle = $(this).text();
+						created = tolink.replace('http://www.ettoday.net/news/', "")
+						created = created.replace(/[/]\d+(.htm)/ig, '')
+						var historyData = new news({
+							title: totitle,
+							link: tolink,
+							category: cate,
+							type: 'ettoday',
+							created_at: created,
+							updated_at: datenow
+						});
+						//   console.log(created);
+						// console.log(tolink);
+						// console.log(totitle);
+				
+						historyData.save(function (err) {
+							
+							if (err){
+							console.log(tolink);
+							console.log(totitle);
+							}else{
+								console.log('save -ok!')
+								console.log(tolink);
+								console.log(totitle);
+							}
+						});
+					});
+		 			historyData = null;
+
+
+				}
 	}
 });
 
