@@ -97,7 +97,7 @@ for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
 	
 	 centerday = m.format('YYYY-MM-DD')
 
-	for (var num = 0; num < 30; num++) {
+	for (var num = 0; num < 26; num++) {
 		craw.queue({
 			uri: customSearch(centerday, num)
 		});
