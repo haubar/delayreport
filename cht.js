@@ -8,7 +8,9 @@ var jsdom = require('jsdom');
 var moment = require('moment');
 
 var newsurl = 'http://www.chinatimes.com'
-var newsdate = '2010-01-01';
+var startd = moment(process.argv[2]);
+var endd = moment(process.argv[3]); //moment();
+var newsdate = startd;
 var datenow = moment().format("YYYY-MM-DD");
 var datecreate = moment(newsdate).format("YYYYMMDD");
 var cate = 'none';
@@ -21,23 +23,26 @@ var craw = new Crawler({
 				var tolink, totitle, pagelink;
 
 			    // $('.wrapper .newspapers.history .np_alllist').each(function(index, a) {
-				$('.wrapper .newspapers.history .np_alllist .listRight h2').each(function(index, a) {
-				 pagelink = $(this).find('.pagination.clear-fix li a').attr('href');
-				 tolink = $(this).find('a').attr('href');
-				 totitle = $(this).find('a').text();
+				$('.wrapper .newspapers.history .np_alllist .listRight').each(function(index, a) {
+				 pagelink = $('.pagination.clear-fix li').find('a').attr('href');
+				console.log(pagelink);
+				 tolink = $(this).find('li h2').find('a').attr('href');
+				 totitle = $(this).find('li h2').find('a').text();
+				//   console.log(tolink);
+			    //   console.log(totitle);
 			 var historyData = new news({
 			   title: totitle,
 			   link: newsurl+tolink,
 			   category: cate,
-			   type: 'chinatime',
+			   type: 'cht',
 			   created_at: newsdate,
          	   updated_at: datenow
 			 });
-			 historyData.save(function (err) {
+			//  historyData.save(function (err) {
 			//    if (err)
 			//    console.log(tolink);
 			//    console.log(totitle);
-			 });
+			//  });
      	});
 		 
 		  
@@ -49,56 +54,59 @@ var craw = new Crawler({
 
 
 
-
 var pagecraw = new Crawler({
-	maxConnections : 10,
+	maxConnections : 8,
 	jQuery : jsdom,
 	forceUTF8 : true,
 	callback : function (error, result, $){
-		
-			$('.wrapper .newspapers.history .np_alllist .pagination.clear-fix li').each(function(index, a) {
-			 var pageinlink = $(this).find('a').attr('href');
-			 var pageintitle = $(this).find('a').text();
+		    var pagelink, pagetitle;
+			if(!!$('.wrapper .newspapers.history .np_alllist .listRight'))
+			$('.wrapper .newspapers.history .np_alllist .listRight').each(function(index, a) {
+			 pageinlink = $(this).find('li h2').find('a').attr('href');
+			 pageintitle = $(this).find('li h2').find('a').text();
 			 console.log('******************')
 			 console.log(pageintitle)
 			 console.log(pageinlink)
 			 console.log('******************')
 			 
- 	});
+ 	        });
  	}
 });
-
-
-var startd = moment('2003-05-05');
-var endd = moment();
-var centerday;
-for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
-  console.log(
-	 centerday = m.format('YYYYMMDD')
-   );
-}
-
 
 var customSearch = function(keyword, mapx){
 	return 'http://www.chinatimes.com/history-by-date/' + keyword+'-'+ mapx;
 };
+
+// var startd = moment('2003-05-05');
+// var endd = moment();
+var centerday;
+for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
+  console.log(
+	 centerday = m.format('YYYY-MM-DD')
+   );
 var mapx = ['2601',
 			'260102',
-			'260114',
 			'260106',
 			'260108',
 			'260109',
 			'260115',
 			'260107',
 			'260111',
-			'260112',
-			'260113',
-		   ];
-for (var idx = 0; idx < mapx.length; idx++) {
-	craw.queue({
-	  uri: customSearch(newsdate, mapx[idx])
-	});
+			'2602',
+			'2603',
+			'2604',
+		   ];   
+	for (var idx = 0; idx < mapx.length; idx++) {
+		craw.queue({
+		uri: customSearch(centerday, mapx[idx])
+		});
+	}
+
 }
+
+
+
+
 
 
 //http://www.chinatimes.com/history-by-date/2009-10-01-260102?page=4
