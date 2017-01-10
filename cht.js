@@ -23,32 +23,23 @@ var craw = new Crawler({
 				var tolink, totitle, pagelink;
 
 			    // $('.wrapper .newspapers.history .np_alllist').each(function(index, a) {
-				$('.wrapper .newspapers.history .np_alllist .listRight').each(function(index, a) {
-				 pagelink = $('.pagination.clear-fix li').find('a').attr('href');
-				console.log(pagelink);
-				 tolink = $(this).find('li h2').find('a').attr('href');
-				 totitle = $(this).find('li h2').find('a').text();
+				$('.wrapper .newspapers.history .np_alllist .pagination.clear-fix li:not(.disabled, .last)').each(function(index, a) {
+				 pagelink = $(this).find('a').attr('href');
+				// if(!!pagelink > 1)
+				{
+					console.log(pagelink);
+				}
+				
+				 tolink = $(this).find('a').attr('href');
+				 totitle = $(this).find('a').text();
 				//   console.log(tolink);
 			    //   console.log(totitle);
-			 var historyData = new news({
-			   title: totitle,
-			   link: newsurl+tolink,
-			   category: cate,
-			   type: 'cht',
-			   created_at: newsdate,
-         	   updated_at: datenow
-			 });
-			//  historyData.save(function (err) {
-			//    if (err)
-			//    console.log(tolink);
-			//    console.log(totitle);
-			//  });
-     	});
-		 
-		  
+     		});
+			// if(!!pagelink > 1)
 			pagecraw.queue({
-	  			uri: (pagelink)
+	  			uri: (newsurl+pagelink)
 			})
+			 
 		}
 });
 
@@ -59,17 +50,36 @@ var pagecraw = new Crawler({
 	jQuery : jsdom,
 	forceUTF8 : true,
 	callback : function (error, result, $){
+		  if(error){
+			   console.log(error);
+		  }else{
+
 		    var pagelink, pagetitle;
-			if(!!$('.wrapper .newspapers.history .np_alllist .listRight'))
-			$('.wrapper .newspapers.history .np_alllist .listRight').each(function(index, a) {
-			 pageinlink = $(this).find('li h2').find('a').attr('href');
-			 pageintitle = $(this).find('li h2').find('a').text();
+			if($('.wrapper').size() > 0)
+			$('.wrapper .newspapers.history .np_alllist .listRight li h2').each(function(index, a) {
+			 pagelink = $(this).find('a').attr('href');
+			 created = pagelink.replace("www.chinatimes.com/", "").replace("newspapers/", "").replace("/", "").substring(0,8);
+			 pagetitle = $(this).find('a').text();
 			 console.log('******************')
-			 console.log(pageintitle)
-			 console.log(pageinlink)
+			 console.log(pagetitle)
+			 console.log(pagelink)
 			 console.log('******************')
-			 
+			 var historyData = new news({
+			   title: pagetitle,
+			   link: newsurl+pagelink,
+			   category: cate,
+			   type: 'cht',
+			   created_at: created,
+         	   updated_at: datenow
+			 });
+			 historyData.save(function (err) {
+			   if (err)
+			   console.log(pagelink);
+			   console.log(pagetitle);
+			 });
+		
  	        });
+		 }
  	}
 });
 
