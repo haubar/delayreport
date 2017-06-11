@@ -1,3 +1,4 @@
+/******** ok 版 Q 連結判斷  */
 // crawler main
 require( './db' );
 var mongoose = require('mongoose');

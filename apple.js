@@ -1,3 +1,5 @@
+/******** ok 版 Q 連結判斷  */
+
 // crawler main
 require( './db' );
 
