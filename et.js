@@ -17,7 +17,7 @@ var datecreate = moment(newsdate).format("YYYYMMDD");
 var cate = 'none';
 
 var craw = new Crawler({
-		maxConnections : 8,
+		maxConnections : 5,
 		jQuery : jsdom,
 		forceUTF8 : true,
 	callback : function (error, result, $){
@@ -26,12 +26,14 @@ var craw = new Crawler({
 					console.log(error);
 				}else{
 					var tolink, totitle, created;
-					if(!!$('#all-news-list h3'))
-					$('#all-news-list h3').each(function(index, a) {
+					if(!!$('.part_menu_2 .part_list_2'))
+					$('div.part_list_2 h3').each(function(index, a) {
 						tolink = $(this).find('a').attr('href');
-						totitle = $(this).text();
+						totitle = $(this).find('a').text();
+						tolink = tolink.replace('/news/' ,'http://www.ettoday.net/news/')
 						created = tolink.replace('http://www.ettoday.net/news/', "")
 						created = created.replace(/[/]\d+(.htm)/ig, '')
+						if(created != )
 						var historyData = new news({
 							title: totitle,
 							link: tolink,
@@ -40,7 +42,7 @@ var craw = new Crawler({
 							created_at: created,
 							updated_at: datenow
 						});
-						//   console.log(created);
+						console.log(created);
 						console.log(tolink);
 						console.log(totitle);
 				
@@ -58,6 +60,7 @@ var craw = new Crawler({
 							}
 							
 						});
+						
 						
 					});
 		 			historyData = null;
@@ -88,8 +91,8 @@ var pagecraw = new Crawler({
 });
 */
 
-var customSearch = function(keyword){
-	return 'http://www.ettoday.net/news/news-list-'+ keyword +'-0-'+ num +'.htm';
+var customSearch = function(keyword, num){
+	return 'http://www.ettoday.net/news/news-list-'+ keyword +'-'+ num +'.htm';
 };
 
 
@@ -98,11 +101,13 @@ for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
 	
 	 centerday = m.format('YYYY-MM-DD')
 
-	for (var num = 0; num < 26; num++) {
+
+	for (var num = 0; num <= 36; num++) {
 		craw.queue({
 			uri: customSearch(centerday, num)
 		});
 	}
+	
 
 }
 customSearch = null

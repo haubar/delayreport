@@ -17,29 +17,34 @@ var datecreate = moment(newsdate).format("YYYYMMDD");
 var cate = 'none';
 
 var craw = new Crawler({
-		maxConnections : 10,
+		maxConnections : 5,
 		jQuery : jsdom,
 		forceUTF8 : true,
 		callback : function (error, result, $){
 				var tolink, totitle, pagelink;
 
 			    // $('.wrapper .newspapers.history .np_alllist').each(function(index, a) {
-				$('.wrapper .newspapers.history .np_alllist .pagination.clear-fix li:not(.disabled, .last)').each(function(index, a) {
+			$('.wrapper .newspapers.history .np_alllist .pagination.clear-fix ul li:not(.disabled, .last, .first, .current )').each(function(index, a) {
 				 pagelink = $(this).find('a').attr('href');
 				// if(!!pagelink > 1)
 				{
-					console.log(pagelink);
+					// console.log(pagelink);
 				}
 				
-				 tolink = $(this).find('a').attr('href');
-				 totitle = $(this).find('a').text();
+				//  tolink = $(this).find('a').attr('href');
+				//  totitle = $(this).find('a').text();
 				//   console.log(tolink);
 			    //   console.log(totitle);
+
+				if(pagelink)
+				{
+					console.log(pagelink);
+					// pagecraw.queue({
+					// 	uri: (newsurl+pagelink)
+					// })
+				}
      		});
-			// if(!!pagelink > 1)
-			pagecraw.queue({
-	  			uri: (newsurl+pagelink)
-			})
+			
 			 
 		}
 });
@@ -55,62 +60,62 @@ var pagecraw = new Crawler({
 			   console.log(error);
 		  }else{
 
-		    var pagelink, pagetitle;
-			if($('.wrapper').size() > 0)
-			$('.wrapper .newspapers.history .np_alllist .listRight li h2').each(function(index, a) {
-			 pagelink = $(this).find('a').attr('href');
-			 created = pagelink.replace("www.chinatimes.com/", "").replace("newspapers/", "").replace("/", "").substring(0,8);
-			 pagetitle = $(this).find('a').text();
-			 console.log('******************')
-			 console.log(pagetitle)
-			 console.log(pagelink)
-			 console.log('******************')
-			 var historyData = new news({
-			   title: pagetitle,
-			   link: newsurl+pagelink,
-			   category: cate,
-			   type: 'cht',
-			   created_at: created,
-         	   updated_at: datenow
-			 });
-			 historyData.save(function (err) {
-			   if (err)
-			   console.log(pagelink);
-			   console.log(pagetitle);
-			 });
-		
- 	        });
+			var pagelink, pagetitle;
+			if($('.wrapper').size() > 0){
+				$('.wrapper .newspapers.history .np_alllist .listRight li h2').each(function(index, a) {
+					pagelink = $(this).find('a').attr('href');
+					created = pagelink.replace("www.chinatimes.com/", "").replace("newspapers/", "").replace("realtimenews/", "").replace("/", "").substring(0,8);
+					pagetitle = $(this).find('a').text();
+					console.log('******************')
+					console.log(pagetitle)
+					console.log(pagelink)
+					console.log(created)
+					console.log('******************')
+					var historyData = new news({
+					title: pagetitle,
+					link: newsurl+pagelink,
+					category: cate,
+					type: 'cht',
+					created_at: created,
+					updated_at: datenow
+					});
+					historyData.save(function (err) {
+					if (err)
+					console.log(pagelink);
+					console.log(pagetitle);
+					});
+				
+				});
+			}	 
 		 }
  	}
 });
 
-var customSearch = function(keyword, mapx){
-	return 'http://www.chinatimes.com/history-by-date/' + keyword+'-'+ mapx;
+var customSearch = function(keyword, mapx, cx){
+		return 'http://www.chinatimes.com/history-by-date/' + keyword+'-'+ mapx +'?page='+cx;
 };
 
 // var startd = moment('2003-05-05');
 // var endd = moment();
-var centerday;
-for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
-  console.log(
-	 centerday = m.format('YYYY-MM-DD')
-   );
+
 var mapx = ['2601',
-			'260102',
-			'260106',
-			'260108',
-			'260109',
-			'260115',
-			'260107',
-			'260111',
 			'2602',
 			'2603',
 			'2604',
-		   ];   
+		   ];  
+
+var centerday;
+for (var m = moment(startd); m.diff(endd, 'days') <= 0; m.add(1, 'days')) {
+  
+	 centerday = m.format('YYYY-MM-DD')
+
+ 
 	for (var idx = 0; idx < mapx.length; idx++) {
-		craw.queue({
-		uri: customSearch(centerday, mapx[idx])
-		});
+		for (var cx = 1; cx <= 10; cx++) {
+			pagecraw.queue({
+			uri: customSearch(centerday, mapx[idx], cx)
+			});
+		}
 	}
 
 }
